@@ -7,9 +7,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 
 const categoryRoutes = require('./api/routes/category');
-
+const companyRouter = require('./api/routes/company');
 const port = process.env.PORT || 3000;
 app.use('/api/categories', categoryRoutes);
+app.use('/api/companies', companyRouter);
 mongoose.set('debug', true);
 mongoose.connect('mongodb://localhost:27017/vacants',{ useNewUrlParser: true })
 .then(db => {
