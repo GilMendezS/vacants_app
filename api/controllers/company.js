@@ -49,7 +49,7 @@ exports.getCompany = async (req, res, next) => {
 exports.updateCompany = async (req, res, next) => {
     try {
         const companyId = req.params.id;
-        const company = await Company.findByIdAndUpdate(companyId, req.body)
+        const company = await Company.findByIdAndUpdate(companyId, req.body);
         return res.status(200).json({
             'message': 'Company modified correctly',
             data: company
@@ -57,6 +57,20 @@ exports.updateCompany = async (req, res, next) => {
     } catch (error) {
         return res.status(500).json({
             message: 'Company not updated',
+            error
+        });
+    }
+}
+exports.removeCompany = async (req, res, next) => {
+    try {
+        const companyId = req.params.id;
+        await Company.findByIdAndRemove(companyId);
+        return res.status(200).json({
+            message: 'Company removed correctly'
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Error removing the company not updated',
             error
         });
     }

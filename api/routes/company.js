@@ -34,4 +34,6 @@ router.get('/:id', CompanyController.getCompany);
 
 router.put('/:id', CompanyController.updateCompany);
 
+router.delete('/:id', CompanyController.removeCompany);
+
 module.exports = router;
