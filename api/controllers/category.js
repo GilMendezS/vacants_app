@@ -30,3 +30,17 @@ exports.addCategory = async (req, res, next) => {
         })
     }
 }
+exports.getCategory = async (req, res, next) => {
+    try {
+        const categoryId = req.params.id;
+        const category = await Category.findById(categoryId);
+        return res.status(200).json({
+            data: category
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Error fetching category',
+            error
+        })
+    }
+}
