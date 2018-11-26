@@ -22,12 +22,12 @@ exports.addCategory = async (req, res, next) => {
         return res.status(200).json({
             messsge: 'Category created',
             data: category
-        })
+        });
     } catch (error) {
         return res.status(500).json({
             message: 'Error saving the category',
             error
-        })
+        });
     }
 }
 exports.getCategory = async (req, res, next) => {
@@ -36,10 +36,25 @@ exports.getCategory = async (req, res, next) => {
         const category = await Category.findById(categoryId);
         return res.status(200).json({
             data: category
-        })
+        });
     } catch (error) {
         return res.status(500).json({
             message: 'Error fetching category',
+            error
+        });
+    }
+}
+exports.updateCategory = async (req, res, next) => {
+    try {
+        const categoryId = req.params.id;
+        const updatedCategory = await Category.findByIdAndUpdate(categoryId, req.body);
+        return res.status(200).json({
+            message: 'Categody modified correctly',
+            data: updatedCategory
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Error updating the category',
             error
         })
     }
