@@ -29,4 +29,6 @@ const upload = multer({
 router.get('/', CompanyController.getCompanies);
 
 router.post('/', upload.single('companyImage'), CompanyController.addCompany)
+
+router.get('/:id', CompanyController.getCompany)
 module.exports = router;

@@ -32,3 +32,17 @@ exports.addCompany = async (req, res, next) => {
         })
     }
 }
+exports.getCompany = async (req, res, next) => {
+    try {
+        const companyId = req.params.id;
+        const company = await Company.findById(companyId)
+        return res.status(200).json({
+            data: company
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Company not found',
+            error
+        })
+    }
+}
