@@ -13,3 +13,20 @@ exports.getCategories = async (req, res, next) => {
         });
     }
 }
+exports.addCategory = async (req, res, next) => {
+    const category = new Category({
+        title: req.body.title
+    });
+    try {
+        await category.save();
+        return res.status(200).json({
+            messsge: 'Category created',
+            data: category
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Error saving the category',
+            error
+        })
+    }
+}
