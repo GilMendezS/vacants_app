@@ -37,8 +37,14 @@ const userSchema = new mongoose.Schema({
     },
     description: {
         type: String
+    },
+    companyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
     }
 });
+userSchema.set('timestamps', true);
 userSchema.pre('save', function(){
     bcrypt.hash(this.password, 10, (err, hashedPAssword) => {
         if(!err){
