@@ -6,9 +6,8 @@ const vacantSchema = new mongoose.Schema({
         required: true
     },
     company: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: 'Company'
+        type: String,
+        required: false
     },
     salary: {
         type: Number,
@@ -41,7 +40,8 @@ const vacantSchema = new mongoose.Schema({
     applicants: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: false
         }
     ]
 })
