@@ -15,7 +15,7 @@ exports.getAllVacants = async (req, res, next) => {
 }
 exports.getActiveVacants = async (req, res, next) => {
     try {
-        const vacants = await Vacant.find({active : true})
+        const vacants = await Vacant.find()
         return res.status(200).json({
             data: vacants
         })
