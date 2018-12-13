@@ -1,5 +1,18 @@
 const User = require('../models/user');
 
+exports.getUsers = async (req, res, next) => {
+    try {
+        const users = await User.find();
+        return res.status(200).json({
+            data: users
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Error fetching users',
+            error
+        })
+    }
+}
 exports.signupUser = async (req, res, next) => {
     try {
         const user = new User({
