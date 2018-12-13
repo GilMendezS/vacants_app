@@ -5,6 +5,8 @@ router.get('/', UserController.getUsers);
 
 router.post('/signup', UserController.signupUser);
 
+router.post('/signin', UserController.siginUser);
+
 router.get('/:id', UserController.getUser);
 
 router.put('/:id', UserController.updateUser);

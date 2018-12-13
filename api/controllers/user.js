@@ -34,6 +34,38 @@ exports.signupUser = async (req, res, next) => {
         })
     }
 }
+exports.siginUser = (req, res, next) => {
+    let userFound = null;
+    User.findOne({email: req.body.email})
+    .then(user => {
+        if(!user){
+            return res.status(404).json({
+                message:'User not found'
+            })
+        }
+        userFound = user;
+        return user.checkPassword(req.body.password)
+    })
+    .then(result => { 
+        if(result){
+            const token = User.generateToken(userFound)
+            return res.status(200).json({
+                message: 'Login successfully',
+                token
+            })
+        }
+        return res.status(422).json({
+            message: 'Error, this credentias are not valid'
+        })
+    })
+    .catch(err => {
+        return res.status(500).json({
+            message: 'Error checking credentials',
+            err
+        })
+    })
+    
+}
 exports.getUser = async (req, res, next) => {
     try {
         const userId = req.params.id;
