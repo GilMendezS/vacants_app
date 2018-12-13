@@ -21,7 +21,7 @@ exports.getStatus = async (req, res, next) => {
         })
     } catch (error) {
         return res.status(500).json({
-            message: 'Error fetchign the status',
+            message: 'Error fetching the status',
             error
         })
     }
@@ -29,7 +29,7 @@ exports.getStatus = async (req, res, next) => {
 exports.addStatus = async (req, res, next) => {
     try {
         const status = new Status({
-            title: req.body.status,
+            title: req.body.title,
             active: true
         })
         await status.save()
@@ -39,7 +39,7 @@ exports.addStatus = async (req, res, next) => {
         })
     } catch (error) {
         return res.status(500).json({
-            message:'Error fetchig the status',
+            message:'Error saving the status',
             error
         })
     }
@@ -47,7 +47,7 @@ exports.addStatus = async (req, res, next) => {
 exports.updateStatus = async (req, res, next) => {
     try {
         const statusId = req.params.id;
-        const updatedStatus = await Status.findByIdAndUpdate(statusId, req,boyd);
+        const updatedStatus = await Status.findByIdAndUpdate(statusId, req.body);
         return res.status(200).json({
             message:'Information updated successfully!',
             data: updatedStatus,

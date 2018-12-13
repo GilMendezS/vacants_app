@@ -9,10 +9,12 @@ app.use(bodyParser.urlencoded({extended : false}));
 const categoryRoutes = require('./api/routes/category');
 const companyRoutes = require('./api/routes/company');
 const contractRoutes = require('./api/routes/contract');
+const statusRoutes = require('./api/routes/status');
 const port = process.env.PORT || 3000;
 app.use('/api/categories', categoryRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/contracts', contractRoutes)
+app.use('/api/statuses', statusRoutes);
 mongoose.set('debug', true);
 mongoose.connect('mongodb://localhost:27017/vacants',{ useNewUrlParser: true })
 .then(db => {
