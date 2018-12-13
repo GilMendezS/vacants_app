@@ -2,7 +2,7 @@ const Contract = require('../models/contract');
 exports.getContracts = async (req, res, next) => {
     try {
         const contractTypes = await Contract.find({active : true});
-        return res.statu(200).json({
+        return res.status(200).json({
             data: contractTypes
         });
     } catch (error) {
@@ -12,7 +12,7 @@ exports.getContracts = async (req, res, next) => {
         });
     }
 }
-exports.addPost = async(req, res, next) => {
+exports.addContract = async(req, res, next) => {
     try {
         const contractType = new Contract({
             title: req.body.title,
