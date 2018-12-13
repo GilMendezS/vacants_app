@@ -8,15 +8,24 @@
       <v-spacer></v-spacer>
       <v-btn
         flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        @click="onShowLogin"
+      >
+        <span class="mr-2">Sign In</span>
+        <v-icon>lock_open</v-icon>
+      </v-btn>
+      <v-btn
+        flat
         target="_blank"
       >
-        <span class="mr-2">Latest Release</span>
+
+        <span class="mr-2">Sign Up</span>
+        <v-icon>person_add</v-icon>
       </v-btn>
     </v-toolbar>
 
     <v-content>
-      <v-vacants/>
+      <router-view/>
     </v-content>
   </v-app>
 </template>
@@ -33,6 +42,12 @@ export default {
       
     }
   },
+  methods: {
+    onShowLogin(){
+      console.log('show form login')
+      this.$router.push('/signin')
+    }
+  }
   
 }
 </script>
