@@ -38,10 +38,8 @@ const userSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    companyId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Company',
-        required: true
+    company: {
+        required: false
     },
     active: {
         type: Boolean,
@@ -49,12 +47,13 @@ const userSchema = new mongoose.Schema({
     }
 });
 userSchema.set('timestamps', true);
-userSchema.pre('save', function(){
+userSchema.pre('save', function(next){
     bcrypt.hash(this.password, 10, (err, hashedPAssword) => {
         if(!err){
-            this.password = hashedPAssword;
+            this.password = hashedPAssword.toString();
+            next();
         }
-    })
-    next();
+    })    
+    
 })
 module.exports = mongoose.model('User', userSchema);
