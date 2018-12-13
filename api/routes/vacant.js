@@ -7,6 +7,8 @@ router.get('/',VacantController.getActiveVacants);
 
 router.get('/all', [middleware.check_token],VacantController.getAllVacants);
 
+router.get('/my-vacants',[middleware.check_token], VacantController.publishedVacants);
+
 router.get('/:id', VacantController.getVacant);
 
 router.post('/', [middleware.check_token],VacantController.addVacant);

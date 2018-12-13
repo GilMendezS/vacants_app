@@ -26,6 +26,23 @@ exports.getActiveVacants = async (req, res, next) => {
         })
     }
 }
+exports.publishedVacants = async (req, res, next) => {
+    try {
+        const vacants = await Vacant.find({creatorId: req.user._id})
+        .populate('applicants')
+        .populate('statusId','title _id')
+        .populate('categoryId', 'title _id')
+        .populate('creatorId')
+        return res.status(200).json({
+            data: vacants
+        })
+    } catch (error) {
+        return res.status(200).json({
+            error
+        })
+    }
+    
+}
 exports.getVacant = async (req, res, next) => {
     try {
         const vacantId = req.params.id;
@@ -69,8 +86,17 @@ exports.apply = async (req, res, next) => {
     const vacantId = req.params.id;
     Vacant.findById(vacantId)
     .then(vacant => {
-        vacant.applicants.push(req.user._id);
-        return vacant.save();
+        const user_applied_before = vacant.applicants.find( a => a._id == req.user._id )
+        console.log('user_applied_before ',user_applied_before)
+        if(user_applied_before){
+            return res.status(200).json({
+                message: 'You applied to this vacant before'
+            })
+        }
+        else {
+            vacant.applicants.push(req.user._id);
+            return vacant.save();    
+        }
     })
     .then(result => {
         return res.status(200).json({
@@ -78,9 +104,9 @@ exports.apply = async (req, res, next) => {
         })
     })
     .catch(err => {
-        console.log(err)
         return res.status(500).json({
-            message: 'Error applying to this vacant'
+            message: 'Error applying to this vacant',
+            err
         })
     })
 }
