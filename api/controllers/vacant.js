@@ -2,7 +2,7 @@ const Vacant = require('../models/vacant');
 
 exports.getAllVacants = async (req, res, next) => {
     try {
-        const vacants = await Vacant.find();
+        const vacants = await Vacant.find().populate('applicants');
         return res.status(200).json({
             data: vacants
         })
@@ -69,9 +69,10 @@ exports.apply = async (req, res, next) => {
     const vacantId = req.params.id;
     Vacant.findById(vacantId)
     .then(vacant => {
-        return vacant.applicants.push(req.user._id);
+        vacant.applicants.push(req.user._id);
+        return vacant.save();
     })
-    .catch(result => {
+    .then(result => {
         return res.status(200).json({
             message: 'You Applied succesfully to this vacant'
         })
