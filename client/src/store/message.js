@@ -7,7 +7,7 @@ export default {
     },
     mutations: {
         showMessage(state, payload){
-            state.showMessage = payload.showMessage;
+            state.showMessage = true;
             state.type = payload.type;
             state.message= payload.message;
         },
