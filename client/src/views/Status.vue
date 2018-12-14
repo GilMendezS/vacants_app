@@ -50,6 +50,17 @@
                 Your search for "{{ search }}" found no results.
             </v-alert>
         </v-data-table>
+        <v-btn
+            color="blue"
+            dark
+            small
+            absolute
+            bottom
+            right
+            fab
+        >
+            <v-icon>add</v-icon>
+        </v-btn>
     </v-card>
 </template>
 <script>
