@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         getVacants(){
-            this.$store.dispatch('loadVacants');
+            this.$store.dispatch('vacantStore/loadVacants');
         }
     },
     computed:{
@@ -36,7 +36,7 @@ export default {
             return this.$store.getters.url_api
         },
         vacants(){
-            return this.$store.getters.vacants;
+            return this.$store.getters['vacantStore/vacants'];
         }
     }
 }

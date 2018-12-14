@@ -31,12 +31,9 @@
 </template>
 
 <script>
-import Vacants from './components/vacants/Vacants'
 export default {
   name: 'App',
-  components: {
-    'v-vacants': Vacants
-  },
+  
   data () {
     return {
       
