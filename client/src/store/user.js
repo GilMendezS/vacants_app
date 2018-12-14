@@ -13,8 +13,8 @@ export default {
             state.token = payload;
             localStorage.setItem('jwt', payload)
         },
-        signout(){
-            localStorage.removeItem('jwt');
+        signout(state){
+            localStorage.clear();
             state.token = null
         }
     },
@@ -54,6 +54,9 @@ export default {
         },
         syncToken({commit}, payload){
             commit('setToken', payload)
+        },
+        signoutUser({commit}){
+            commit('signout')
         }
     },
     getters: {

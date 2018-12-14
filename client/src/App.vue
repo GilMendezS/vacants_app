@@ -30,6 +30,14 @@
         <span class="mr-1">Sign Up</span>
         <v-icon>person_add</v-icon>
       </v-btn>
+      <v-btn
+        flat
+        @click="onSignOut"
+        target="_blank"
+      >
+        
+        <v-icon>power_settings_new</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <v-content>
@@ -73,6 +81,9 @@ export default {
     },
     onShowStatuses(){
       this.$router.push('/statuses')
+    },
+    onSignOut(){
+      this.$store.dispatch('user/signoutUser')
     }
   },
   computed: {
