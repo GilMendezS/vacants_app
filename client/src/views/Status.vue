@@ -50,21 +50,18 @@
                 Your search for "{{ search }}" found no results.
             </v-alert>
         </v-data-table>
-        <v-btn
-            color="blue"
-            dark
-            small
-            absolute
-            bottom
-            right
-            fab
+        <v-float-button
+            :color="'blue'"
         >
-            <v-icon>add</v-icon>
-        </v-btn>
+        </v-float-button>
     </v-card>
 </template>
 <script>
+import FloatButon from '../components/buttons/FloatButton.vue';
 export default {
+    components: {
+        'v-float-button': FloatButon
+    },
     data(){
         return {
             headers: [
