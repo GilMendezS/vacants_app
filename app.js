@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const env = require('./api/env')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
@@ -22,7 +23,7 @@ app.use('/api/statuses', statusRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/vacants', vacantRoutes)
 mongoose.set('debug', true);
-mongoose.connect('mongodb://localhost:27017/vacants',{ useNewUrlParser: true })
+mongoose.connect(env.db,{ useNewUrlParser: true })
 .then(db => {
     console.log('db connected');
     app.listen(port, () => {
