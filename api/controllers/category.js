@@ -20,7 +20,7 @@ exports.addCategory = async (req, res, next) => {
     try {
         await category.save();
         return res.status(200).json({
-            messsge: 'Category created',
+            messsage: 'Category created',
             data: category
         });
     } catch (error) {
@@ -49,7 +49,7 @@ exports.updateCategory = async (req, res, next) => {
         const categoryId = req.params.id;
         const updatedCategory = await Category.findByIdAndUpdate(categoryId, req.body);
         return res.status(200).json({
-            message: 'Categody modified correctly',
+            message: 'Category modified correctly',
             data: updatedCategory
         });
     } catch (error) {
