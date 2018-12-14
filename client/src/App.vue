@@ -25,15 +25,19 @@
     </v-toolbar>
 
     <v-content>
+      <v-message/>
       <router-view/>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import Message from './components/messages/Message.vue';
 export default {
   name: 'App',
-  
+  components: {
+    'v-message': Message
+  },
   data () {
     return {
       
@@ -41,7 +45,6 @@ export default {
   },
   methods: {
     onShowLogin(){
-      console.log('show form login')
       this.$router.push('/signin')
     }
   }

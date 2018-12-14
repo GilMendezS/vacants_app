@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 import Signin from './components/users/Signin.vue';
 import Vacants from './components/vacants/Vacants.vue';
 

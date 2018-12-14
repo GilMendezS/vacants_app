@@ -11,7 +11,6 @@ export default {
     },
     actions: {
         loadVacants({commit, rootGetters}){
-            console.log(rootGetters.url_api)
             axios.get(`${rootGetters.url_api}/vacants`)
             .then(response => {
                 commit('setLoadedVacants', response.data.data)
