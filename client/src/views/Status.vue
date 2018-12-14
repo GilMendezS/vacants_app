@@ -59,6 +59,11 @@
                     >
                     </v-float-button>
                 </v-card>
+                <v-confirm :item="readyToRemove" 
+                    :text="messageToConfirm" 
+                    :state="showingConfirmationDialog"
+                    @confirmation="onRemoveStatus">
+                </v-confirm>
             </v-flex>
         </v-layout>
     </v-container>
@@ -67,10 +72,12 @@
 <script>
 import AddStatus from '../components/statuses/AddStatus.vue';
 import FloatButon from '../components/buttons/FloatButton.vue';
+import ConfirmModal from '../components/modals/Confirm.vue';
 export default {
     components: {
         'v-float-button': FloatButon,
-        'v-add-status': AddStatus
+        'v-add-status': AddStatus,
+        'v-confirm': ConfirmModal
     },
     data(){
         return {
@@ -91,10 +98,12 @@ export default {
 
             ],
             search: '',
+            messageToConfirm: '',
+            readyToRemove: null,
+            showingConfirmationDialog: false
         }
     },
     mounted(){
-        console.log('status view')
         this.$store.dispatch('status/loadStatuses');
     },
     methods: {
@@ -102,6 +111,13 @@ export default {
 
         },
         removeStatus(status){
+            this.readyToRemove = status;
+            this.showingConfirmationDialog = true;
+            this.messageToConfirm = `Do you really want to remove this status? ${status.title}`
+        },
+        onRemoveStatus(){
+            this.readyToRemove = null
+            this.showingConfirmationDialog = false;
 
         }
     },

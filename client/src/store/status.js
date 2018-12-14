@@ -10,6 +10,9 @@ export default {
         },
         setANewStatus(state, payload){
             state.statuses = [...state.statuses, payload]
+        },
+        removeFromStatuses(state, payload){
+            state.statuses = state.statuses.filter( status => status._id != payload )
         }
     },
     actions: {
@@ -37,6 +40,26 @@ export default {
             })
             .catch(err => {
                 console.log(err)
+            })
+        },
+        removeStatus({dispatch, commit, rootGetters}, payload){
+            axios.delete(`${rootGetters.url_api}/statuses/${payload}`)
+            .then(response => {
+                console.log(response.data)
+                if(response.status === 200){
+                    dispatch('message/addMessage', {
+                        type: 'success',
+                        message: response.data.message
+                    }, { root: true })
+                    commit('removeFromStatuses', payload)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch('message/addMessage', {
+                    type: 'error',
+                    message: err.message
+                }, { root: true })
             })
         }
     },
