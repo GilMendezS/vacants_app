@@ -2,7 +2,7 @@
     <v-container>
         <v-layout>
             <v-flex xs12>
-                <v-card>
+                <v-card v-show="!formToCreateIsActive">
                     <v-card-title>
                         <v-icon>
                             announcement
@@ -18,6 +18,7 @@
                         ></v-text-field>
                     </v-card-title>
                     <v-data-table
+                        v-show="!creatingStatus"
                         :headers="headers"
                         :items="statuses"
                         :search="search"
@@ -53,12 +54,15 @@
                             Your search for "{{ search }}" found no results.
                         </v-alert>
                     </v-data-table>
-                    <v-add-status /> 
-                    <v-float-button
-                        :color="'blue'"
-                    >
-                    </v-float-button>
+                    
+                    
                 </v-card>
+                <v-add-status v-show="formToCreateIsActive"/> 
+                <v-float-button
+                    v-show="!formToCreateIsActive"
+                    :color="'blue'"
+                >
+                </v-float-button>
                 <v-confirm :item="readyToRemove" 
                     :text="messageToConfirm" 
                     :state="showingConfirmationDialog"
@@ -100,7 +104,8 @@ export default {
             search: '',
             messageToConfirm: '',
             readyToRemove: null,
-            showingConfirmationDialog: false
+            showingConfirmationDialog: false,
+            creatingStatus: false
         }
     },
     mounted(){
@@ -115,6 +120,9 @@ export default {
             this.showingConfirmationDialog = true;
             this.messageToConfirm = `Do you really want to remove this status? ${status.title}`
         },
+        onShowFormToAddNewStatus(){
+            this.creatingStatus = true;
+        },
         onRemoveStatus(){
             this.readyToRemove = null
             this.showingConfirmationDialog = false;
@@ -124,6 +132,9 @@ export default {
     computed: {
         statuses(){
             return this.$store.getters['status/getStatuses'];
+        },
+        formToCreateIsActive(){
+            return this.$store.getters['getStatusFormToCreate']
         }
     }
 }

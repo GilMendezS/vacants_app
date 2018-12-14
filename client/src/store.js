@@ -15,10 +15,30 @@ export default new Vuex.Store({
   },
   state: {
     api_url: 'http://localhost:3000/api',
+    showingFormToCreate: false,
+  },
+  mutations: {
+    enableFormToCreate(state){
+      state.showingFormToCreate = true;
+    },
+    setHiddenFormToCreate(state){
+      state.showingFormToCreate = false;
+    }
+  },
+  actions: {
+    showFormToCreate({commit}){
+      commit('enableFormToCreate')
+    },
+    hideFormToCreate({commit}){
+      commit('setHiddenFormToCreate')
+    }
   },
   getters: {
     url_api(state){
       return state.api_url
     },
+    getStatusFormToCreate(state){
+      return state.showingFormToCreate;
+    }
   }
 })

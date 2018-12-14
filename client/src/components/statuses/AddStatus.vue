@@ -32,6 +32,12 @@
                         >
                         Add <v-icon>add</v-icon>
                         </v-btn>
+                        <v-btn
+                            @click="cancelCreating"
+                            class="red white-text"
+                        >
+                            Cancel <v-icon>cancel</v-icon>
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -50,6 +56,9 @@ export default {
     methods: {
         onSubmit(){
             this.$store.dispatch('status/addStatus', this.status)
+        },
+        cancelCreating(){
+            this.$store.dispatch('hideFormToCreate')
         }
     },
     computed: {
