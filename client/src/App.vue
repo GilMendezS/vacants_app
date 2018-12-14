@@ -15,6 +15,7 @@
         <v-icon>announcement</v-icon>
       </v-btn>
       <v-btn
+        v-if="!currentUser"
         flat
         target="_blank"
         @click="onShowLogin"
@@ -23,6 +24,7 @@
         <v-icon>lock_open</v-icon>
       </v-btn>
       <v-btn
+        v-if="!currentUser"
         flat
         @click="onShowSignupForm"
         target="_blank"
@@ -31,11 +33,11 @@
         <v-icon>person_add</v-icon>
       </v-btn>
       <v-btn
+        v-if="currentUser"
         flat
         @click="onSignOut"
         target="_blank"
       >
-        
         <v-icon>power_settings_new</v-icon>
       </v-btn>
     </v-toolbar>
