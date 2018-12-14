@@ -9,9 +9,17 @@
       <v-btn
         flat
         target="_blank"
+        @click="onShowStatuses"
+      >
+        <span class="mr-1">Statuses</span>
+        <v-icon>announcement</v-icon>
+      </v-btn>
+      <v-btn
+        flat
+        target="_blank"
         @click="onShowLogin"
       >
-        <span class="mr-2">Sign In</span>
+        <span class="mr-1">Sign In</span>
         <v-icon>lock_open</v-icon>
       </v-btn>
       <v-btn
@@ -19,7 +27,7 @@
         @click="onShowSignupForm"
         target="_blank"
       >
-        <span class="mr-2">Sign Up</span>
+        <span class="mr-1">Sign Up</span>
         <v-icon>person_add</v-icon>
       </v-btn>
     </v-toolbar>
@@ -62,6 +70,9 @@ export default {
     },
     onShowSignupForm(){
       this.$router.push('/signup')
+    },
+    onShowStatuses(){
+      this.$router.push('/statuses')
     }
   },
   computed: {
