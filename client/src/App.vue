@@ -16,9 +16,9 @@
       </v-btn>
       <v-btn
         flat
+        @click="onShowSignupForm"
         target="_blank"
       >
-
         <span class="mr-2">Sign Up</span>
         <v-icon>person_add</v-icon>
       </v-btn>
@@ -38,14 +38,35 @@ export default {
   components: {
     'v-message': Message
   },
-  data () {
-    return {
-      
+  created(){
+    const token = localStorage.getItem('jwt');
+    if(token){
+      this.$router.push('/vacants')
+      this.$store.dispatch('user/syncToken', token)
+    }
+  }
+  ,
+  watch: {
+    currentUser(){
+      if(!this.currentUser){
+        this.$router.push('/signin')    
+      }
+      else {
+        this.$router.push('vacants')
+      }
     }
   },
   methods: {
     onShowLogin(){
       this.$router.push('/signin')
+    },
+    onShowSignupForm(){
+      this.$router.push('/signup')
+    }
+  },
+  computed: {
+    currentUser(){
+      return this.$store.getters['user/getToken'];
     }
   }
   
