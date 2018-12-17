@@ -51,7 +51,8 @@ exports.siginUser = (req, res, next) => {
             const token = User.generateToken(userFound)
             return res.status(200).json({
                 message: 'Login successfully',
-                token
+                token,
+                user: userFound
             })
         }
         return res.status(422).json({
