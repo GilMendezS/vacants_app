@@ -46,7 +46,7 @@
 </template>
 <script>
 export default {
-    props: ['text','state', 'item'],
+    props: ['text','state', 'item', 'action'],
     data(){
         return {
             
@@ -54,7 +54,7 @@ export default {
     },
     methods: {
         sendConfirmation(){
-            this.$store.dispatch('status/removeStatus', this.item._id);
+            this.$store.dispatch(this.action, this.item._id);
             this.$emit('confirmation')
         }
     }
