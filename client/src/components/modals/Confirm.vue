@@ -24,7 +24,7 @@
           <v-btn
             flat
             color="red"
-            @click="sendConfirmation"
+            @click="modalClosed"
           >
             Cancelar 
             <v-icon >
@@ -56,6 +56,9 @@ export default {
         sendConfirmation(){
             this.$store.dispatch(this.action, this.item._id);
             this.$emit('confirmation')
+        },
+        modalClosed(){
+          this.$emit('modalClosed')
         }
     }
 }
