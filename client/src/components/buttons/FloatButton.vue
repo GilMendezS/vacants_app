@@ -9,15 +9,20 @@
         fab
         @click="onShowForm"
     >
-        <v-icon>add</v-icon>
+        <v-icon>{{showIcon}}</v-icon>
     </v-btn>
 </template>
 <script>
 export default {
-    props: ['color'],
+    props: ['color', 'icon'],
     methods: {
         onShowForm(){
             this.$store.dispatch('showFormToCreate')
+        }
+    },
+    computed: {
+        showIcon(){
+            return this.icon ? this.icon : 'add';
         }
     }
 }

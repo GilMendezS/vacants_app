@@ -19,6 +19,11 @@ export default new Router({
       component: Vacants
     },
     {
+      path: '/vacants',
+      name: 'vacants',
+      component: Vacants
+    },
+    {
       path: '/signin',
       beforeEnter: CheckIfIsAuthenticated,
       name: 'signin',

@@ -9,6 +9,14 @@
       <v-btn
         flat
         target="_blank"
+        @click="onShowVacants"
+      >
+        <span class="mr-1">Vacants</span>
+        <v-icon>assignment</v-icon>
+      </v-btn>
+      <v-btn
+        flat
+        target="_blank"
         @click="onShowStatuses"
       >
         <span class="mr-1">Statuses</span>
@@ -86,6 +94,9 @@ export default {
     },
     onSignOut(){
       this.$store.dispatch('user/signoutUser')
+    },
+    onShowVacants(){
+      this.$router.push('vacants');
     }
   },
   computed: {
