@@ -5,6 +5,7 @@ import message from './store/message';
 import user from './store/user';
 import status from './store/status';
 import contract from './store/contract';
+import category from './store/category';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     message,
     user,
     status,
-    contract
+    contract,
+    category
   },
   state: {
     api_url: 'http://localhost:3000/api',

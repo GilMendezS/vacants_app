@@ -5,6 +5,8 @@ import Signup from './components/users/Signup.vue';
 import Vacants from './components/vacants/Vacants.vue';
 import Status from './views/Status.vue';
 import Contract from './views/Contracts.vue'
+import AddVacant from './components/vacants/AddVacant.vue';
+import Categories from './views/Categories.vue';
 import CheckIfIsAuthenticated from './middlewares/authenticated';
 
 Vue.use(Router)
@@ -22,6 +24,16 @@ export default new Router({
       path: '/vacants',
       name: 'vacants',
       component: Vacants
+    },
+    {
+      path: '/vacants/add',
+      name: 'addvacant',
+      component: AddVacant
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: Categories
     },
     {
       path: '/signin',
