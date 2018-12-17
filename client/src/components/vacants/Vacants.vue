@@ -5,7 +5,6 @@
             wrap
         >
         <v-flex xs12>
-            <h1>Vacants</h1>
             <v-vacant
                 v-for="vacant in vacants"
                 :key="vacant._id"
@@ -35,6 +34,9 @@ export default {
     methods: {
         getVacants(){
             this.$store.dispatch('vacantStore/loadVacants');
+        },
+        onShowFormToCreate(){
+            this.$router.push('vacants/add');
         }
     },
     computed:{
@@ -42,7 +44,17 @@ export default {
             return this.$store.getters.url_api
         },
         vacants(){
-            return this.$store.getters['vacantStore/vacants'];
+            return this.$store.getters['vacantStore/getVacants'];
+        },
+        showingFormToCreate(){
+            return this.$store.getters['getStatusFormToCreate'];
+        }
+    },
+    watch: {
+        showingFormToCreate(){
+            if(this.showingFormToCreate){
+                this.onShowFormToCreate();
+            }
         }
     }
 }
