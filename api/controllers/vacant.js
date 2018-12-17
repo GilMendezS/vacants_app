@@ -64,9 +64,9 @@ exports.addVacant = async(req, res, next) => {
             company: req.body.company,
             salary: req.body.salary,
             description: req.body.description,
-            contractId: req.body.contract,
-            statusId: req.body.status,
-            categoryId: req.body.category,
+            contractId: req.body.contractId,
+            statusId: req.body.statusId,
+            categoryId: req.body.categoryId,
             creatorId : req.user._id
             
         })
