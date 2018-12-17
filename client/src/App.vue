@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
+    <v-toolbar dark color="primary">
       <v-toolbar-title class="headline text-uppercase">
         <span>Vacants</span>
         <span class="font-weight-light">APP</span>
@@ -12,15 +12,33 @@
         @click="onShowVacants"
       >
         <span class="mr-1">Vacants</span>
+        <v-icon>assignment_ind</v-icon>
+      </v-btn>
+      <v-btn
+        flat
+        target="_blank"
+        @click="onShowTypeOfContracts"
+      >
+        <span class="mr-1">Type of Contracts</span>
         <v-icon>assignment</v-icon>
       </v-btn>
       <v-btn
+        v-if="currentUser"
         flat
         target="_blank"
         @click="onShowStatuses"
       >
         <span class="mr-1">Statuses</span>
         <v-icon>announcement</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="currentUser"
+        flat
+        target="_blank"
+        @click="onShowCategories"
+      >
+        <span class="mr-1">Categories</span>
+        <v-icon>layers</v-icon>
       </v-btn>
       <v-btn
         v-if="!currentUser"
@@ -40,14 +58,22 @@
         <span class="mr-1">Sign Up</span>
         <v-icon>person_add</v-icon>
       </v-btn>
-      <v-btn
-        v-if="currentUser"
-        flat
-        @click="onSignOut"
-        target="_blank"
-      >
-        <v-icon>power_settings_new</v-icon>
-      </v-btn>
+      <!--MENU-->
+      <v-menu :nudge-width="100">
+        <v-toolbar-title slot="activator">
+          <v-icon>person_pin</v-icon>
+        </v-toolbar-title>
+
+        <v-list>
+          <v-list-tile
+            v-for="item in items"
+            :key="item"
+            
+          >
+          <v-list-tile-title v-text="item"></v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
 
     <v-content>
@@ -63,6 +89,16 @@ export default {
   name: 'App',
   components: {
     'v-message': Message
+  },
+  data(){
+    return {
+      items: [
+        'My Profile',
+        'My published vacants',
+        'Applied vacants',
+        'SignOut'
+      ]
+    }
   },
   created(){
     const token = localStorage.getItem('jwt');
@@ -97,6 +133,12 @@ export default {
     },
     onShowVacants(){
       this.$router.push('vacants');
+    },
+    onShowCategories(){
+      this.$router.push('categories');
+    },
+    onShowTypeOfContracts(){
+      this.$router.push('contracts');
     }
   },
   computed: {
