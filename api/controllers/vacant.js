@@ -46,7 +46,11 @@ exports.publishedVacants = async (req, res, next) => {
 exports.getVacant = async (req, res, next) => {
     try {
         const vacantId = req.params.id;
-        const vacant = await Vacant.findById(vacantId);
+        const vacant = await Vacant.findById(vacantId).populate('categoryId')
+        .populate('statusId')
+        .populate('contractId')
+        .populate('creatorId')
+        .populate('applicants');
         return res.status(200).json({
             data: vacant
         })
