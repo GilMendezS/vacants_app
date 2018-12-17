@@ -7,6 +7,7 @@ import Status from './views/Status.vue';
 import Contract from './views/Contracts.vue'
 import AddVacant from './components/vacants/AddVacant.vue';
 import Categories from './views/Categories.vue';
+import VacantInformation from './components/vacants/VacantInformation.vue';
 import CheckIfIsAuthenticated from './middlewares/authenticated';
 
 Vue.use(Router)
@@ -26,9 +27,14 @@ export default new Router({
       component: Vacants
     },
     {
-      path: '/vacants/add',
+      path: '/add-vacant',
       name: 'addvacant',
       component: AddVacant
+    },
+    {
+      path: '/vacant-details',
+      name: 'vacant-details',
+      component: VacantInformation
     },
     {
       path: '/categories',

@@ -102,9 +102,11 @@ export default {
   },
   created(){
     const token = localStorage.getItem('jwt');
-    if(token){
+    const user = localStorage.getItem('user');
+    if(token && user){
       this.$router.push('/vacants')
       this.$store.dispatch('user/syncToken', token)
+      this.$store.dispatch('user/syncUser', JSON.parse(user))
     }
   }
   ,

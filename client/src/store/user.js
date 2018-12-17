@@ -13,9 +13,14 @@ export default {
             state.token = payload;
             localStorage.setItem('jwt', payload)
         },
+        setUser(state, payload){
+            state.authenticated_user = payload;
+            localStorage.setItem('user', JSON.stringify(payload))
+        },
         signout(state){
             localStorage.clear();
-            state.token = null
+            state.token = null;
+            state.authenticated_user = null;
         }
     },
     actions: {
@@ -25,6 +30,7 @@ export default {
                 console.log(response)
                 if(response.status === 200){
                     commit('setToken',  response.data.token)
+                    commit('setUser',  response.data.user)
                     dispatch('message/addMessage', {
                         type:'success',
                         message: 'Login successfully!'
@@ -54,6 +60,9 @@ export default {
         },
         syncToken({commit}, payload){
             commit('setToken', payload)
+        },
+        syncUser({commit}, payload){
+            commit('setUser', payload);
         },
         signoutUser({commit}){
             commit('signout')

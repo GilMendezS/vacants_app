@@ -36,7 +36,7 @@ export default {
             this.$store.dispatch('vacantStore/loadVacants');
         },
         onShowFormToCreate(){
-            this.$router.push('vacants/add');
+            this.$router.push('add-vacant');
         }
     },
     computed:{

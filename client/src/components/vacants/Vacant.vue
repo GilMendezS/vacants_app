@@ -21,7 +21,7 @@
 
         <v-card-actions>
           <v-btn flat color="orange">Share <v-icon>share</v-icon></v-btn>
-          <v-btn flat color="orange">Explore <v-icon>open_in_new</v-icon> </v-btn>
+          <v-btn flat color="orange" @click="showDetails(vacant)">Explore <v-icon>open_in_new</v-icon> </v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -33,6 +33,14 @@ export default {
             dark: false,
             flat: false,
             hover: true
+        }
+    },
+    methods: {
+        showDetails(vacant){
+            this.$store.dispatch('vacantStore/getVacant', vacant._id)
+            this.$router.push({
+                name: 'vacant-details'
+            })
         }
     }
 }
