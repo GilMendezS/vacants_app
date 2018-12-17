@@ -18,14 +18,14 @@ export default {
             }
         },
         removeContractWithId(state, payload){
-            state.contracs = state.contracts.filter( c => c._id !== payload);
+            state.contracts = state.contracts.filter( c => c._id !== payload);
         }
     },
     actions: {
-        loadContracts({dispatch, commit, rootGetters}, payload){
+        loadContracts({commit, rootGetters}){
             axios.get(`${rootGetters.url_api}/contracts`)
             .then(response => {
-                console.log(data)
+                console.log(response.data)
                 commit('setLoadedContracts', response.data.data);
             })
             .catch(err => {
@@ -33,6 +33,7 @@ export default {
             })
         },
         addContract({dispatch, commit, rootGetters}, payload){
+            dispatch('statusApiCall', true, { root: true })
             axios.post(`${rootGetters.url_api}/contracts`, payload)
             .then(response => {
                 commit('addNewContract', response.data.data);
@@ -44,8 +45,12 @@ export default {
             .catch(err => {
                 console.log(err)
             })
+            .finally(() => {
+                dispatch('statusApiCall', false, { root: true })
+            })
         },
         updateContract({dispatch, commit, rootGetters}, payload){
+            dispatch('statusApiCall', true, { root: true })
             axios.put(`${rootGetters.url_api}/contracts/${payload._id}`, payload)
             .then(response => {
                 console.log(response)
@@ -57,6 +62,9 @@ export default {
             })
             .catch(err => {
                 console.log(err)
+            })
+            .finally(() => {
+                dispatch('statusApiCall', false, { root: true })
             })
         },
         removeContract({ dispatch, commit, rootGetters }, id){
@@ -77,6 +85,8 @@ export default {
         }
     },
     getters: {
-
+        getTypeOfContracts(state){
+            return state.contracts;
+        }
     }
 }

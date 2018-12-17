@@ -5,9 +5,9 @@
                 <v-card v-show="!formToCreateIsActive">
                     <v-card-title>
                         <v-icon>
-                            announcement
+                            assignment
                         </v-icon>
-                        Statuses
+                        Type Of Contracts
                         <v-spacer></v-spacer>
                         <v-text-field
                         v-model="search"
@@ -18,9 +18,9 @@
                         ></v-text-field>
                     </v-card-title>
                     <v-data-table
-                        v-show="!creatingStatus"
+                        v-show="!creatingContract"
                         :headers="headers"
-                        :items="statuses"
+                        :items="contracts"
                         :search="search"
                     >
                         <template slot="items" slot-scope="props">
@@ -37,14 +37,14 @@
                                 <v-icon
                                     small
                                     class="mr-2 blue--text"
-                                    @click="editStatus(props.item)"
+                                    @click="editContact(props.item)"
                                 >
                                     edit
                                 </v-icon>
                                 <v-icon
                                     small
                                     class="red--text"
-                                    @click="removeStatus(props.item)"
+                                    @click="removeContract(props.item)"
                                 >
                                     delete
                                 </v-icon>
@@ -57,7 +57,7 @@
                     
                     
                 </v-card>
-                <v-add-status v-show="formToCreateIsActive"/> 
+                <v-add-contract v-show="formToCreateIsActive"/> 
                 <v-float-button
                     v-show="!formToCreateIsActive"
                     :color="'blue'"
@@ -68,7 +68,7 @@
                     :item="readyToRemove" 
                     :text="messageToConfirm" 
                     :state="showingConfirmationDialog"
-                    @confirmation="onRemoveStatus">
+                    @confirmation="onRemoveContract">
                 </v-confirm>
             </v-flex>
         </v-layout>
@@ -76,13 +76,13 @@
     
 </template>
 <script>
-import AddStatus from '../components/statuses/AddStatus.vue';
+import AddContract from '../components/contracts/AddContract.vue';
 import FloatButon from '../components/buttons/FloatButton.vue';
 import ConfirmModal from '../components/modals/Confirm.vue';
 export default {
     components: {
         'v-float-button': FloatButon,
-        'v-add-status': AddStatus,
+        'v-add-contract': AddContract,
         'v-confirm': ConfirmModal
     },
     data(){
@@ -107,34 +107,33 @@ export default {
             messageToConfirm: '',
             readyToRemove: null,
             showingConfirmationDialog: false,
-            creatingStatus: false,
-            action_store: 'status/removeStatus'
+            creatingContract: false,
+            action_store: 'contract/removeContract'
         }
     },
     mounted(){
-        this.$store.dispatch('status/loadStatuses');
+        this.$store.dispatch('contract/loadContracts');
     },
     methods: {
-        editStatus(status){
+        editContract(contract){
 
         },
-        removeStatus(status){
-            this.readyToRemove = status;
+        removeContract(contract){
+            this.readyToRemove = contract;
             this.showingConfirmationDialog = true;
-            this.messageToConfirm = `Do you really want to remove this status? ${status.title}`
+            this.messageToConfirm = `Do you really want to remove this type of contract? ${contract.title}`
         },
-        onShowFormToAddNewStatus(){
-            this.creatingStatus = true;
+        onShowFormToAddNewContract(){
+            this.creatingContract = true;
         },
-        onRemoveStatus(){
+        onRemoveContract(){
             this.readyToRemove = null
             this.showingConfirmationDialog = false;
-
         }
     },
     computed: {
-        statuses(){
-            return this.$store.getters['status/getStatuses'];
+        contracts(){
+            return this.$store.getters['contract/getTypeOfContracts'];
         },
         formToCreateIsActive(){
             return this.$store.getters['getStatusFormToCreate']

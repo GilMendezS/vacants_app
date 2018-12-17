@@ -4,6 +4,7 @@ import vacantStore from './store/vacant';
 import message from './store/message';
 import user from './store/user';
 import status from './store/status';
+import contract from './store/contract';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,11 +12,13 @@ export default new Vuex.Store({
     vacantStore,
     message,
     user,
-    status
+    status,
+    contract
   },
   state: {
     api_url: 'http://localhost:3000/api',
     showingFormToCreate: false,
+    makingApiCall: false
   },
   mutations: {
     enableFormToCreate(state){
@@ -23,6 +26,9 @@ export default new Vuex.Store({
     },
     setHiddenFormToCreate(state){
       state.showingFormToCreate = false;
+    },
+    setStateApiCall(state, payload){
+      state.makingApiCall = payload;
     }
   },
   actions: {
@@ -31,6 +37,9 @@ export default new Vuex.Store({
     },
     hideFormToCreate({commit}){
       commit('setHiddenFormToCreate')
+    },
+    statusApiCall({commit}, payload){
+      commit('setStateApiCall', payload)
     }
   },
   getters: {
@@ -39,6 +48,9 @@ export default new Vuex.Store({
     },
     getStatusFormToCreate(state){
       return state.showingFormToCreate;
+    },
+    getStateApiCall(state){
+      return state.makingApiCall;
     }
   }
 })

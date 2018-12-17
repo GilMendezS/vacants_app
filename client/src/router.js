@@ -4,6 +4,7 @@ import Signin from './components/users/Signin.vue';
 import Signup from './components/users/Signup.vue';
 import Vacants from './components/vacants/Vacants.vue';
 import Status from './views/Status.vue';
+import Contract from './views/Contracts.vue'
 import CheckIfIsAuthenticated from './middlewares/authenticated';
 
 Vue.use(Router)
@@ -33,6 +34,11 @@ export default new Router({
       path:'/statuses',
       component: Status,
       name: 'statuses'
+    },
+    {
+      path:'/contracts',
+      component: Contract,
+      name: 'contracts'
     },
     {
       path: '/about',
