@@ -32,7 +32,6 @@ export default {
     },
     methods: {
         showDetails(vacant){
-            this.$store.dispatch('vacantStore/getVacant', vacant._id)
             this.$router.push({
                 name: 'vacant-details',
                 params: {

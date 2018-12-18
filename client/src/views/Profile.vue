@@ -32,25 +32,74 @@
                                 <h3 class="display-2">  {{fullname | capitalizedWord}}</h3>
                             </v-card-title>
                             <v-card-text>
-                                <p><v-icon>email</v-icon> Email: {{profile.email}}</p>
-                                <p>
-                                    Phones:
-                                    <v-chip v-for="phone in profile.phones" :key="phone">
-                                        {{phone}}
-                                    </v-chip>
-                                </p>
-                                <p>
-                                    <v-checkbox
-                                    v-model="profile.lookingFor"
-                                    label="Are you looking for a job?"
-                                    ></v-checkbox>
-                                </p>
-                                <p>
-                                    <v-icon>date_range</v-icon>  Account created: {{createdAt}}
-                                </p>
+                                <div v-show="!editing">
+                                    <p><v-icon>email</v-icon> Email: {{profile.email}}</p>
+                                    <p>
+                                        Phone:
+                                        <v-chip >
+                                            {{profile.phone}}
+                                        </v-chip>
+                                    </p>
+                                    <p>
+                                        <v-checkbox
+                                        v-model="profile.lookingFor"
+                                        label="Are you looking for a job?"
+                                        ></v-checkbox>
+                                    </p>
+                                    <p>
+                                        <v-icon>date_range</v-icon>  Account created: {{createdAt}}
+                                    </p>
+                                </div>
+                                <div v-show="editing">
+                                    <v-form>
+                                        <v-input prepend-icon="create"></v-input>
+                                        <v-text-field
+                                            v-model="user.name"
+                                            label="Name"
+                                        >
+                                        </v-text-field>
+                                        <v-input prepend-icon="create"></v-input>
+                                        <v-text-field
+                                            v-model="user.lastname"
+                                            label="Lastname"
+                                        >
+                                        </v-text-field>
+                                        <v-input prepend-icon="email"></v-input>
+                                        <v-text-field
+                                            v-model="user.email"
+                                            label="Email"
+                                        >
+                                        </v-text-field>
+                                        <v-input prepend-icon="contact_phone"></v-input>
+                                        <v-text-field
+                                            v-model="user.phone"
+                                            label="Phone"
+                                        >
+                                        </v-text-field>
+                                        <v-input prepend-icon="how_to_reg"></v-input>
+                                        <v-textarea 
+                                            outline
+                                            name="input-7-4"
+                                            label="Write a description about you..."
+                                            v-model="user.description">
+                                        </v-textarea>
+                                        
+                                        <v-date-picker v-model="birthdate" :landscape="landscape" :reactive="reactive"></v-date-picker>
+                                        <v-checkbox
+                                            v-model="checkbox"
+                                            label="Change Password?"
+                                            required
+                                            >
+                                        </v-checkbox>
+                                        <v-text-field :type="'password'" v-model="new_password" v-show="checkbox"></v-text-field>
+                                    </v-form>
+                                </div>
+                                
                             </v-card-text>
                             <v-card-actions>
-
+                                <v-btn v-show="!editing" @click="onEdit" color="blue white--text">Edit <v-icon>create</v-icon></v-btn>
+                                <v-btn class="cyan white--text" v-show="editing" @click="onUpdate">Update <v-icon>refresh</v-icon></v-btn>
+                                <v-btn class="red white--text" v-show="editing" @click="editing = false">Cancel <v-icon>clear</v-icon></v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-tab-item>
@@ -65,7 +114,7 @@
                                         <v-list-tile
                                         :key="item.title"
                                         avatar
-                                        @click="showVacant(vacant)"
+                                        @click="showVacant(item)"
                                         >
                                         <v-list-tile-avatar>
                                             <img src="favicon.ico">
@@ -91,7 +140,7 @@
                                         <v-list-tile
                                         :key="item.title"
                                         avatar
-                                        @click="showVacant(vacant)"
+                                        @click="showVacant(item)"
                                         >
                                         <v-list-tile-avatar>
                                             <img src="favicon.ico">
@@ -118,15 +167,45 @@ export default {
     data(){
         return {
             active: true,
-            tabs: ['Your Profile', 'Published Vacants', 'Applied']
+            tabs: ['Your Profile', 'Published Vacants', 'Applied'],
+            editing: false,
+            user: {},
+            landscape: true,
+            reactive: true,
+            birthdate: '',
+            checkbox: false,
+            new_password: ''
         }
     },
     mounted(){
         this.$store.dispatch('user/loadProfile')
     },
     methods: {
+        onEdit(){
+            this.editing = true;
+        },
         showVacant(vacant){
-            console.log(vacant)
+            this.$router.push({
+                name: 'vacant-details', 
+                params: {
+                    id: vacant._id
+                }
+            })
+        },
+        onUpdate(){
+            this.user.birthdate = this.birthdate;
+            const data = {}
+            data.name = this.user.name;
+            data.lastname = this.user.lastname;
+            data.email = this.user.email;
+            if(this.checkbox){
+                data.password = this.new_password;
+            }
+            data.phone = this.user.phone;
+            data.birthdate = this.birthdate;
+            data.description = this.user.description;
+            data._id = this.user._id;
+            this.$store.dispatch('user/updateUser', data);
         }
     },
     computed: {
@@ -138,6 +217,11 @@ export default {
         },
         createdAt(){
             return this.profile.createdAt ? moment(this.profile.createdAt).format('DD-MM-YYYY') : '- - -';
+        }
+    },
+    watch: {
+        profile(){
+            this.user = this.profile;
         }
     },
     filters: {

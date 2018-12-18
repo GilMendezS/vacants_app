@@ -20,11 +20,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    phones: [
-        {
-            type: String,
-        }
-    ],
+    phone:
+    {
+        type: String,
+    },
     lookingFor: {
         type: Boolean,
         default: true,

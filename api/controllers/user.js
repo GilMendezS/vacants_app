@@ -21,7 +21,7 @@ exports.signupUser = async (req, res, next) => {
             email: req.body.email,
             password: req.body.password,
             lookingFor: req.body.lookingfor,
-            companyId : req.body.company
+            company : req.body.company
         })
         await user.save()
         return res.status(200).json({

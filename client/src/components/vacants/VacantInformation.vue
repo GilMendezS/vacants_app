@@ -56,10 +56,10 @@ export default {
         'v-related-vacants': RelatedVacants
     },
     mounted(){
-        console.log(moment.now())
+        this.$store.dispatch('vacantStore/getVacant', this.id)
     },
     created() {
-        console.log(this.user)
+        
     },
     methods: {
         apply(vacant){

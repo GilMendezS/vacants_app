@@ -62,6 +62,24 @@ export default {
                 console.log(err)
             })
         },
+        updateUser({dispatch, commit, rootGetters}, payload){
+            axios.put(`${rootGetters.url_api}/users/${payload._id}`, payload)
+            .then(response => {
+                console.log(payload)
+                console.log(response.data)
+                dispatch('message/addMessage', {
+                    type: 'success',
+                    message: response.data.message
+                }, { root: true })
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch('message/addMessage', {
+                    type: 'error',
+                    message: err.message
+                }, { root: true })
+            })
+        },
         syncToken({commit}, payload){
             commit('setToken', payload)
         },
