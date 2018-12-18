@@ -12,7 +12,7 @@ import Home from './views/Home.vue';
 import FilteredVacants from './views/Filtered.vue';
 import ProfileView from './views/Profile.vue';
 import CheckIfIsAuthenticated from './middlewares/authenticated';
-
+import onlyAuthenticatedUsers from './middlewares/onlyAuthenticatedUsers';
 Vue.use(Router)
 
 export default new Router({
@@ -37,7 +37,8 @@ export default new Router({
     {
       path: '/add-vacant',
       name: 'addvacant',
-      component: AddVacant
+      component: AddVacant,
+      beforeEnter: onlyAuthenticatedUsers
     },
     {
       path: '/vacant-details/:id',
@@ -48,7 +49,8 @@ export default new Router({
     {
       path: '/categories',
       name: 'categories',
-      component: Categories
+      component: Categories,
+      beforeEnter: onlyAuthenticatedUsers
     },
     {
       path: '/signin',
@@ -65,17 +67,20 @@ export default new Router({
     {
       path:'/statuses',
       component: Status,
-      name: 'statuses'
+      name: 'statuses',
+      beforeEnter: onlyAuthenticatedUsers
     },
     {
       path:'/contracts',
       component: Contract,
-      name: 'contracts'
+      name: 'contracts',
+      beforeEnter: onlyAuthenticatedUsers
     },
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView
+      component: ProfileView,
+      beforeEnter: onlyAuthenticatedUsers
     },
     {
       path: '/about',
