@@ -2,10 +2,13 @@
     <v-container>
         <v-layout
             text-xs-center
-            wrap
+            
+            row
         >
         <v-flex xs12>
             <v-vacant
+                xs-4
+                class="mb-4"
                 v-for="vacant in vacants"
                 :key="vacant._id"
                 :vacant="vacant"

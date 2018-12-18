@@ -8,6 +8,7 @@ import Contract from './views/Contracts.vue'
 import AddVacant from './components/vacants/AddVacant.vue';
 import Categories from './views/Categories.vue';
 import VacantInformation from './components/vacants/VacantInformation.vue';
+import Home from './views/Home.vue';
 import CheckIfIsAuthenticated from './middlewares/authenticated';
 
 Vue.use(Router)
@@ -19,7 +20,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Vacants
+      component: Home
     },
     {
       path: '/vacants',

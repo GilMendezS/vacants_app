@@ -8,17 +8,12 @@
           aspect-ratio="5"
         ></v-img>
         <v-card-title primary-title>
-          <div>
-              <p><v-icon>domain</v-icon> Company: {{vacant.company}}</p>
-              <p><v-icon>portrait</v-icon> Vacant: {{vacant.title}} </p>
-                <p>
-                    {{vacant.description}}
-                </p>
-                
-            
-          </div>
+            <h3><v-icon>portrait</v-icon> Vacant: {{vacant.title}}</h3>
         </v-card-title>
-
+        <v-card-text>
+            <p class="text-xs-left"><v-icon>domain</v-icon> Company: {{vacant.company}}</p>
+            <p class="text-xs-left">Description: {{vacant.description | shortText}}</p>
+        </v-card-text>
         <v-card-actions>
           <v-btn flat color="orange">Share <v-icon>share</v-icon></v-btn>
           <v-btn flat color="orange" @click="showDetails(vacant)">Explore <v-icon>open_in_new</v-icon> </v-btn>
@@ -44,6 +39,14 @@ export default {
                     id: vacant._id
                 }
             })
+        }
+    },
+    filters: {
+        shortText(value){
+            if(!value){
+                return ''
+            }
+            return value.substring(0,50);
         }
     }
 }

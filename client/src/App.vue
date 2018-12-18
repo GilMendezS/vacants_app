@@ -104,7 +104,6 @@ export default {
     const token = localStorage.getItem('jwt');
     const user = localStorage.getItem('user');
     if(token && user){
-      this.$router.push('/vacants')
       this.$store.dispatch('user/syncToken', token)
       this.$store.dispatch('user/syncUser', JSON.parse(user))
     }
@@ -114,9 +113,6 @@ export default {
     currentUser(){
       if(!this.currentUser){
         this.$router.push('/signin')    
-      }
-      else {
-        this.$router.push('vacants')
       }
     }
   },
