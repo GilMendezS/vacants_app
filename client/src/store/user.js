@@ -43,7 +43,15 @@ export default {
                 }
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.response)
+                dispatch('message/addMessage', {
+                    type: 'error',
+                    message: err.response.data.message
+                }, { root: true })
+            })
+            .finally(() => {
+                
+
             })
         },
         signup({dispatch, commit, rootGetters}, payload, ){
@@ -64,9 +72,7 @@ export default {
         },
         updateUser({dispatch, commit, rootGetters}, payload){
             axios.put(`${rootGetters.url_api}/users/${payload._id}`, payload)
-            .then(response => {
-                console.log(payload)
-                console.log(response.data)
+            .then(response => {                
                 dispatch('message/addMessage', {
                     type: 'success',
                     message: response.data.message

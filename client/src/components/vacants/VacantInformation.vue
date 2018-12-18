@@ -31,8 +31,17 @@
 
                     <v-card-actions>
                     <v-btn flat color="blue">Share <v-icon>share</v-icon></v-btn>
-                    <v-btn v-if="!canNotApply" flat color="blue" @click="apply(vacant)">Apply <v-icon>done</v-icon> </v-btn>
-                    <v-btn v-else flat  color="green" aria-disabled="true">You already Apply to this vacant<v-icon>done</v-icon> </v-btn>
+                    <div v-if="user">
+                        <v-btn v-if="!canNotApply" flat color="blue" @click="apply(vacant)">Apply <v-icon>done</v-icon> </v-btn>
+                        <v-btn v-else flat  color="green" aria-disabled="true">You already Apply to this vacant<v-icon>done</v-icon> </v-btn>
+                    </div>
+                    <div v-else>
+                        <v-chip @click="onSignin" class="cyan">
+                            <v-avatar class="cyan"><v-icon>info</v-icon></v-avatar>
+                            SignIn <v-icon>launch</v-icon>
+                        </v-chip>
+                    </div>
+                    
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -64,6 +73,9 @@ export default {
     methods: {
         apply(vacant){
             this.$store.dispatch('vacantStore/apply', vacant._id);
+        },
+        onSignin(){
+            this.$router.push('/signin')
         }
     },
     computed: {
@@ -80,7 +92,7 @@ export default {
             return this.vacant.applicants ? this.vacant.applicants.length : ''
         },
         canNotApply(){
-            return this.vacant.applicants ? this.vacant.applicants.map( a => a._id).includes(this.user._id) : false
+            return this.vacant.applicants && this.user ? this.vacant.applicants.map( a => a._id).includes(this.user._id) : false
         },
         user(){
             return this.$store.getters['user/getAuthenticatedUser'];

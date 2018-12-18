@@ -15,6 +15,7 @@
         <v-icon>assignment_ind</v-icon>
       </v-btn>
       <v-btn
+        v-if="currentUser"
         flat
         target="_blank"
         @click="onShowTypeOfContracts"
@@ -59,7 +60,7 @@
         <v-icon>person_add</v-icon>
       </v-btn>
       <!--MENU-->
-      <v-menu :nudge-width="100">
+      <v-menu :nudge-width="100" v-if="currentUser">
         <v-toolbar-title slot="activator">
           <v-icon>person_pin</v-icon>
         </v-toolbar-title>

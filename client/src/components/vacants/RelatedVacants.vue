@@ -45,11 +45,19 @@ export default {
         relatedVacants(){
             const self = this;
             return this.vacants.filter( v => {
-                const applied = v.applicants.includes(this.user._id)
-                console.log(this.category, v.categoryId)
-                if(!applied && self.category === v.categoryId && v._id !== this.except){
-                    return v;
+                
+                if(this.user){
+                    const applied = v.applicants.includes(this.user._id)
+                    if(!applied && self.category === v.categoryId && v._id !== this.except){
+                        return v;
+                    }
                 }
+                else {
+                    if(self.category === v.categoryId && v._id !== this.except){
+                        return v;
+                    }
+                }
+                
             })       
         },
         user(){
