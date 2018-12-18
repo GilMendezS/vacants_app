@@ -66,11 +66,14 @@
 
         <v-list>
           <v-list-tile
-            v-for="item in items"
-            :key="item"
-            
+            @click="showProfile"
           >
-          <v-list-tile-title v-text="item"></v-list-tile-title>
+            <v-list-tile-title >Profile <v-icon>person</v-icon></v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile
+            @click="onSignOut"
+          >
+            <v-list-tile-title >Signout <v-icon>power_settings_new</v-icon></v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -93,10 +96,10 @@ export default {
   data(){
     return {
       items: [
-        'My Profile',
-        'My published vacants',
-        'Applied vacants',
-        'SignOut'
+        {title: 'My Profile', action:"showProfile"},
+        {
+          title: 'SignOut', action:'onSignOut'
+        }
       ]
     }
   },
@@ -137,6 +140,9 @@ export default {
     },
     onShowTypeOfContracts(){
       this.$router.push('/contracts');
+    },
+    showProfile(){
+      this.$router.push('/profile')
     }
   },
   computed: {

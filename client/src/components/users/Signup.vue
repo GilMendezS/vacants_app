@@ -93,7 +93,7 @@ import User from '../../models/user.js';
 export default {
     data(){
         return {
-            user: new User('','','','','','',false,'','','')
+            user: new User('','','','','','',false,'','','','','')
         }
     },
     methods: {
