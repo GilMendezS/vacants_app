@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     goToHome(){
-      this.$router.push('/vacants')
+      this.$router.push('/')
     },
     onShowLogin(){
       this.$router.push('/signin')
