@@ -5,7 +5,7 @@ export default {
     state: {
         vacants: [],
         current_vacant: new Vacant('', '', '','', '', '', '' ,'', ''),
-        vacants_result: [],
+        filtered_vacants: [],
         search: ''
     },
     mutations:{
@@ -23,6 +23,9 @@ export default {
         },
         updateSearch(state, payload){
             state.search = payload;
+        },
+        seFilteredResults(state, payload){
+            state.filtered_vacants = payload;
         }
     },
     actions: {
@@ -93,6 +96,7 @@ export default {
             axios.get(`${rootGetters.url_api}/vacants/filter/${getters.getSearch}`)
             .then(response => {
                 console.log(response.data)
+                commit('seFilteredResults', response.data.data);
             })
             .catch(err => {
                 console.log(err)
@@ -111,6 +115,9 @@ export default {
         },
         getSearch(state){
             return state.search;
+        },
+        getFilteredVacants(state){
+            return state.filtered_vacants;
         }
     }
 

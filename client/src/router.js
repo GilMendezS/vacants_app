@@ -9,6 +9,7 @@ import AddVacant from './components/vacants/AddVacant.vue';
 import Categories from './views/Categories.vue';
 import VacantInformation from './components/vacants/VacantInformation.vue';
 import Home from './views/Home.vue';
+import FilteredVacants from './views/Filtered.vue';
 import CheckIfIsAuthenticated from './middlewares/authenticated';
 
 Vue.use(Router)
@@ -21,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/vacants/filtered',
+      name: 'fitered-vacants',
+      component: FilteredVacants,
     },
     {
       path: '/vacants',

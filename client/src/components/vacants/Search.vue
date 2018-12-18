@@ -36,6 +36,9 @@ export default {
     methods: {
         onSearch(){
             this.$store.dispatch('vacantStore/filterVacants')
+            this.$router.push({
+                name: 'fitered-vacants'
+            })
         }
     },
     computed: {
