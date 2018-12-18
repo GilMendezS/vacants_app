@@ -9,6 +9,8 @@ router.get('/all', [middleware.check_token],VacantController.getAllVacants);
 
 router.get('/my-vacants',[middleware.check_token], VacantController.publishedVacants);
 
+router.get('/filter/:search', VacantController.filter);
+
 router.get('/:id', VacantController.getVacant);
 
 router.post('/', [middleware.check_token],VacantController.addVacant);

@@ -26,6 +26,20 @@ exports.getActiveVacants = async (req, res, next) => {
         })
     }
 }
+exports.filter = async (req, res, next) => {
+    const filter = req.params.search;
+    try {
+        const results = await Vacant.find({title: new RegExp(filter, "i")})
+        return res.status(200).json({
+            data: results,
+            query: filter
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Error filtering :('
+        })
+    }
+}
 exports.publishedVacants = async (req, res, next) => {
     try {
         const vacants = await Vacant.find({creatorId: req.user._id})

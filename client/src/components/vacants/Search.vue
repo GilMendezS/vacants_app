@@ -30,14 +30,24 @@
 export default {
     data(){
         return {
-            search: '',
             hover: true
         }
     },
     methods: {
         onSearch(){
-            console.log(this.search)
+            this.$store.dispatch('vacantStore/filterVacants')
+        }
+    },
+    computed: {
+        search:{
+            get(){
+                return this.$store.getters['vacantStore/getSearch'];    
+            },
+            set(value){
+                this.$store.dispatch('vacantStore/modifySearch', value)
+            }
         }
     }
+
 }
 </script>
