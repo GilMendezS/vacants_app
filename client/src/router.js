@@ -7,7 +7,7 @@ import Status from './views/Status.vue';
 import Contract from './views/Contracts.vue'
 import AddVacant from './components/vacants/AddVacant.vue';
 import Categories from './views/Categories.vue';
-import VacantInformation from './components/vacants/VacantInformation.vue';
+import VacantView from './views/VacantView.vue';
 import Home from './views/Home.vue';
 import FilteredVacants from './views/Filtered.vue';
 import ProfileView from './views/Profile.vue';
@@ -44,7 +44,7 @@ export default new Router({
       path: '/vacant-details/:id',
       name: 'vacant-details',
       props: true,
-      component: VacantInformation
+      component: VacantView
     },
     {
       path: '/categories',

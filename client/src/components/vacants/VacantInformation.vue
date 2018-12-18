@@ -1,8 +1,7 @@
 <template>
     <v-container>
         <v-layout>
-            <v-flex xs8>
-                
+            <v-flex xs8>  
                 <v-card>
                     <v-img
                     src="https://cdn.dribbble.com/users/473254/screenshots/1890882/ic_launcher_dii-dribble_dribble_dribble.png"
@@ -22,7 +21,6 @@
                         </p>
                         <p> <v-icon>date_range</v-icon> Published: {{published}}</p>
                         <p><v-icon>update</v-icon> Last modificafion: {{last_modification}}</p>
-                        <p><v-icon>people</v-icon> Applicants: {{applicants}}</p>
                         <p><v-icon>star</v-icon> Status: {{vacant.statusId.title}}</p>
                         <p><v-icon>layers</v-icon> Category: {{vacant.categoryId.title}}</p>
                         <p><v-icon>description</v-icon> Type Of Contract: {{vacant.contractId.title}}</p>
@@ -60,12 +58,11 @@ import moment from 'moment';
 import RelatedVacants from './RelatedVacants.vue';
 import Vacant from '../../models/vacant.js';
 export default {
-    props: ['id'],
     components: {
         'v-related-vacants': RelatedVacants
     },
     mounted(){
-        this.$store.dispatch('vacantStore/getVacant', this.id)
+        
     },
     created() {
         
