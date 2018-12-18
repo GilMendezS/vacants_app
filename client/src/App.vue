@@ -134,13 +134,13 @@ export default {
       this.$store.dispatch('user/signoutUser')
     },
     onShowVacants(){
-      this.$router.push('vacants');
+      this.$router.push('/vacants');
     },
     onShowCategories(){
-      this.$router.push('categories');
+      this.$router.push('/categories');
     },
     onShowTypeOfContracts(){
-      this.$router.push('contracts');
+      this.$router.push('/contracts');
     }
   },
   computed: {

@@ -36,14 +36,25 @@
                     </v-card-actions>
                 </v-card>
             </v-flex>
+            <v-flex xs4>
+                <v-related-vacants
+                    :category="category"
+                    :except="vacant._id"
+                >
+                </v-related-vacants>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
 <script>
 import moment from 'moment';
+import RelatedVacants from './RelatedVacants.vue';
 import Vacant from '../../models/vacant.js';
 export default {
     props: ['id'],
+    components: {
+        'v-related-vacants': RelatedVacants
+    },
     mounted(){
         console.log(moment.now())
     },
@@ -73,6 +84,9 @@ export default {
         },
         user(){
             return this.$store.getters['user/getAuthenticatedUser'];
+        },
+        category(){
+            return this.vacant.categoryId._id ? this.vacant.categoryId._id : ''
         }
     }
 }
