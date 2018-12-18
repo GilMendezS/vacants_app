@@ -43,6 +43,7 @@
 import moment from 'moment';
 import Vacant from '../../models/vacant.js';
 export default {
+    props: ['id'],
     mounted(){
         console.log(moment.now())
     },
@@ -68,7 +69,7 @@ export default {
             return this.vacant.applicants ? this.vacant.applicants.length : ''
         },
         canNotApply(){
-            return this.vacant.applicants.map( a => a._id).includes(this.user._id)
+            return this.vacant.applicants ? this.vacant.applicants.map( a => a._id).includes(this.user._id) : false
         },
         user(){
             return this.$store.getters['user/getAuthenticatedUser'];

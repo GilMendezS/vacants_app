@@ -32,8 +32,9 @@ export default new Router({
       component: AddVacant
     },
     {
-      path: '/vacant-details',
+      path: '/vacant-details/:id',
       name: 'vacant-details',
+      props: true,
       component: VacantInformation
     },
     {

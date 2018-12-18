@@ -39,7 +39,10 @@ export default {
         showDetails(vacant){
             this.$store.dispatch('vacantStore/getVacant', vacant._id)
             this.$router.push({
-                name: 'vacant-details'
+                name: 'vacant-details',
+                params: {
+                    id: vacant._id
+                }
             })
         }
     }
