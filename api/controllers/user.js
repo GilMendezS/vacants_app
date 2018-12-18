@@ -1,5 +1,5 @@
 const User = require('../models/user');
-
+const Vacant = require('../models/vacant');
 exports.getUsers = async (req, res, next) => {
     try {
         const users = await User.find();
@@ -70,7 +70,9 @@ exports.siginUser = (req, res, next) => {
 exports.getUser = async (req, res, next) => {
     try {
         const userId = req.params.id;
-        const user = await User.findById(userId);
+        let user = await User.findById(userId).lean();
+        user['applied'] = await Vacant.find({applicants: user._id});
+        user['published'] = await Vacant.find({creatorId: user._id});
         return res.status(200).json({
             data: user
         })

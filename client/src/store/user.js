@@ -5,7 +5,8 @@ export default {
     state: {
         users: [],
         authenticated_user : null,
-        token: null
+        token: null,
+        profile: null
     },
     mutations: {
         setToken(state, payload){
@@ -21,6 +22,9 @@ export default {
             localStorage.clear();
             state.token = null;
             state.authenticated_user = null;
+        },
+        setProfile(state, payload){
+            state.profile = payload;
         }
     },
     actions: {
@@ -66,6 +70,17 @@ export default {
         },
         signoutUser({commit}){
             commit('signout')
+        },
+        loadProfile({commit, rootGetters, getters}){
+            const user_id = getters.getAuthenticatedUser._id;
+            axios.get(`${rootGetters.url_api}/users/${user_id}`)
+            .then(response => {
+                console.log(response.data)
+                commit('setProfile',response.data.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
     },
     getters: {
@@ -74,6 +89,9 @@ export default {
         },
         getAuthenticatedUser(state){
             return state.authenticated_user;
+        },
+        getProfile(state){
+            return state.profile;
         }
     }
 }
