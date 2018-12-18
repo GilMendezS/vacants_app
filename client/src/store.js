@@ -18,7 +18,7 @@ export default new Vuex.Store({
     category
   },
   state: {
-    api_url: 'http://localhost:3000/api',
+    api_url: '/api',
     showingFormToCreate: false,
     makingApiCall: false
   },
