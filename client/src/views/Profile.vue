@@ -84,7 +84,7 @@
                                             v-model="user.description">
                                         </v-textarea>
                                         
-                                        <v-date-picker v-model="birthdate" :landscape="landscape" :reactive="reactive"></v-date-picker>
+                                        <v-date-picker v-model="user.birthdate" :landscape="landscape" :reactive="reactive"></v-date-picker>
                                         <v-checkbox
                                             v-model="checkbox"
                                             label="Change Password?"
@@ -163,13 +163,14 @@
 </template>
 <script>
 import moment from 'moment';
+import User from '../models/user.js';
 export default {
     data(){
         return {
             active: true,
             tabs: ['Your Profile', 'Published Vacants', 'Applied'],
             editing: false,
-            user: {},
+            user: new User('','','','','','',false,'','','','',''),
             landscape: true,
             reactive: true,
             birthdate: '',
@@ -202,7 +203,7 @@ export default {
                 data.password = this.new_password;
             }
             data.phone = this.user.phone;
-            data.birthdate = this.birthdate;
+            data.birthdate = this.user.birthdate;
             data.description = this.user.description;
             data._id = this.user._id;
             this.$store.dispatch('user/updateUser', data);

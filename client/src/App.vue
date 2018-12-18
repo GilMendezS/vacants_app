@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar dark color="primary">
-      <v-toolbar-title class="headline text-uppercase">
+      <v-toolbar-title class="headline text-uppercase" @click="goToHome">
         <span>Vacants</span>
         <span class="font-weight-light">APP</span>
       </v-toolbar-title>
@@ -78,6 +78,14 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+      <v-btn
+        flat
+        @click="showAbout"
+        target="_blank"
+      >
+        <span class="mr-1"></span>
+        <v-icon>info</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <v-content>
@@ -121,6 +129,9 @@ export default {
     }
   },
   methods: {
+    goToHome(){
+      this.$router.push('/vacants')
+    },
     onShowLogin(){
       this.$router.push('/signin')
     },
@@ -144,6 +155,9 @@ export default {
     },
     showProfile(){
       this.$router.push('/profile')
+    },
+    showAbout(){
+      this.$router.push('/about')
     }
   },
   computed: {
