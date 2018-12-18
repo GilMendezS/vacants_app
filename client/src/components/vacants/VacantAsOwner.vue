@@ -57,7 +57,12 @@ export default {
             this.$router.push('/signin')
         },
         redirectToProfile(id){
-            
+            this.$router.push({
+                name: 'public-profile',
+                params: {
+                    id: id
+                }
+            })
         }
     },
     computed: {

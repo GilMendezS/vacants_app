@@ -10,6 +10,7 @@ import Categories from './views/Categories.vue';
 import VacantView from './views/VacantView.vue';
 import Home from './views/Home.vue';
 import FilteredVacants from './views/Filtered.vue';
+import PublicProfile from './components/users/PublicProfile.vue';
 import ProfileView from './views/Profile.vue';
 import CheckIfIsAuthenticated from './middlewares/authenticated';
 import onlyAuthenticatedUsers from './middlewares/onlyAuthenticatedUsers';
@@ -80,6 +81,13 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+      beforeEnter: onlyAuthenticatedUsers
+    },
+    {
+      path:'/public/profile/:id',
+      name: 'public-profile',
+      props: true,
+      component: PublicProfile,
       beforeEnter: onlyAuthenticatedUsers
     },
     {
