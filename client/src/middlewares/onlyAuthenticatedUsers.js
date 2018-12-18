@@ -1,10 +1,11 @@
 import store from '../store';
 export default (to, from, next) => {
     const authenticated = store.getters['user/getToken'];
-    if(authenticated){
-        next();
+    const existsTokenInLocal = localStorage.getItem('jwt');
+    if(existsTokenInLocal == null || existsTokenInLocal == undefined){
+        next('/signin');
     }
     else {
-        next('/signin');
+        next();
     }
 }

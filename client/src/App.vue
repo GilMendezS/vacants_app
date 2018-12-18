@@ -123,7 +123,8 @@ export default {
   ,
   watch: {
     currentUser(){
-      if(!this.currentUser){
+      const token = localStorage.getItem('jwt');
+      if(!this.currentUser && !token){
         this.$router.push('/signin')    
       }
     }
