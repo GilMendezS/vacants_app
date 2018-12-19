@@ -15,6 +15,7 @@ const contractRoutes = require('./api/routes/contract');
 const statusRoutes = require('./api/routes/status');
 const userRoutes = require('./api/routes/user');
 const vacantRoutes = require('./api/routes/vacant');
+const jobRoutes = require('./api/routes/job');
 const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/public/"))
@@ -26,6 +27,7 @@ app.use('/api/contracts', contractRoutes)
 app.use('/api/statuses', statusRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/vacants', vacantRoutes)
+app.use('/api/jobs', jobRoutes);
 app.get('*', (req, res) => res.sendFile(__dirname + "/public/index.html"))
 mongoose.set('debug', true);
 mongoose.connect(env.db,{ useNewUrlParser: true })
