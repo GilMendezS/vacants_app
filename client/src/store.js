@@ -6,6 +6,7 @@ import user from './store/user';
 import status from './store/status';
 import contract from './store/contract';
 import category from './store/category';
+import job from './store/job';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -15,10 +16,11 @@ export default new Vuex.Store({
     user,
     status,
     contract,
-    category
+    category,
+    job
   },
   state: {
-    api_url: '/api',
+    api_url: 'http://localhost:3000/api',
     showingFormToCreate: false,
     makingApiCall: false
   },

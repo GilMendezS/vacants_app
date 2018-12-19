@@ -32,23 +32,53 @@
                                 <h3 class="display-2">  {{fullname | capitalizedWord}}</h3>
                             </v-card-title>
                             <v-card-text>
-                                <div v-show="!editing">
-                                    <p><v-icon>email</v-icon> Email: {{profile.email}}</p>
-                                    <p>
-                                        Phone:
-                                        <v-chip >
-                                            {{profile.phone}}
-                                        </v-chip>
-                                    </p>
-                                    <p>
-                                        <v-checkbox
-                                        v-model="profile.lookingFor"
-                                        label="Are you looking for a job?"
-                                        ></v-checkbox>
-                                    </p>
-                                    <p>
-                                        <v-icon>date_range</v-icon>  Account created: {{createdAt}}
-                                    </p>
+                                <div v-show="!editing" >
+                                    <v-layout row>
+                                        <v-flex sm7 xs12>
+                                        <p><v-icon>email</v-icon> Email: {{profile.email}}</p>
+                                        <p>
+                                            Phone:
+                                            <v-chip >
+                                                {{profile.phone}}
+                                            </v-chip>
+                                        </p>
+                                        <p>
+                                            <v-checkbox
+                                            v-model="profile.lookingFor"
+                                            label="Are you looking for a job?"
+                                            ></v-checkbox>
+                                        </p>
+                                        <p>
+                                            <v-icon>date_range</v-icon>  Account created: {{createdAt}}
+                                        </p>
+                                    </v-flex>
+                                    <v-flex sm5 xs12>
+                                        <h3>Experience</h3>
+                                        <v-btn @click="addingJob = true" class="outline blue">
+                                            Add <v-icon>add</v-icon>
+                                            
+                                        </v-btn>
+                                        <v-card class="mt-1" v-show="!addingJob" v-for="job in jobs" :key="job._id">
+                                            <v-card-title>
+                                                {{job.title}}
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <p>{{job.company}}</p>
+                                                <p>{{job.start_date}} - {{job.end_date}}</p>
+                                                <p>Current Job:{{job.current_job ? 'Yes': 'No'}}</p>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-btn class="red" @click="removeJob(job)">Remove <v-icon>close</v-icon></v-btn>
+                                            </v-card-actions>
+                                            
+                                        </v-card>
+                                        <v-add-job v-show="addingJob"></v-add-job>
+                                        <v-btn v-show="addingJob" class="red" @click="addingJob = false">Cancel <v-icon>close</v-icon></v-btn>
+                                    </v-flex>
+                                    </v-layout>
+                                    
+                                    
+                                    
                                 </div>
                                 <div v-show="editing">
                                     <v-form>
@@ -164,7 +194,11 @@
 <script>
 import moment from 'moment';
 import User from '../models/user.js';
+import AddJob from '../components/jobs/AddJob.vue';
 export default {
+    components: {
+        'v-add-job': AddJob
+    },
     data(){
         return {
             active: true,
@@ -175,11 +209,13 @@ export default {
             reactive: true,
             birthdate: '',
             checkbox: false,
-            new_password: ''
+            new_password: '',
+            addingJob: false
         }
     },
     mounted(){
         this.$store.dispatch('user/loadProfile')
+        this.$store.dispatch('job/loadJobs');
     },
     methods: {
         onEdit(){
@@ -207,6 +243,9 @@ export default {
             data.description = this.user.description;
             data._id = this.user._id;
             this.$store.dispatch('user/updateUser', data);
+        },
+        removeJob(job){
+            this.$store.dispatch('job/deleteJob', job._id);
         }
     },
     computed: {
@@ -218,6 +257,9 @@ export default {
         },
         createdAt(){
             return this.profile.createdAt ? moment(this.profile.createdAt).format('DD-MM-YYYY') : '- - -';
+        },
+        jobs(){
+            return this.$store.getters['job/getJobs'];
         }
     },
     watch: {

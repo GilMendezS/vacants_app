@@ -25,6 +25,12 @@ export default {
         },
         setProfile(state, payload){
             state.profile = payload;
+        },
+        addNewJob(state, payload){
+            state.profile.jobs = [...state.profile.jobs, payload]
+        },
+        removeJob(state, id){
+            state.profile.jobs = state.profile.jobs.filter( j => j._id !== id );
         }
     },
     actions: {
@@ -95,17 +101,22 @@ export default {
         signoutUser({commit}){
             commit('signout')
         },
+        addJob({commit}, payload){
+            commit('addNewJob', payload);
+        },
+        deleteJob({commit}, id){
+            commit('removeJob', id);
+        },
         loadProfile({commit, rootGetters, getters}){
             const user_id = getters.getAuthenticatedUser._id;
             axios.get(`${rootGetters.url_api}/users/${user_id}`)
             .then(response => {
-                console.log(response.data)
                 commit('setProfile',response.data.data)
             })
             .catch(err => {
                 console.log(err)
             })
-        }
+        },
     },
     getters: {
         getToken(state){
