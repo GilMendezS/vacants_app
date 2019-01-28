@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const env = require('node-env-file');
 const cors = require('cors');
 const app = express();
-const env = require('./api/env.js')
+
+env(__dirname + '/.env');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
@@ -33,11 +35,9 @@ mongoose.set('debug', true);
 
 app.listen(port, () => {
     console.log('Http server running');
-    mongoose.connect(env.db, { useNewUrlParser: true })
+    mongoose.connect(process.env.URI_DB, { useNewUrlParser: true, server: { auto_reconnect: true }})
         .then(db => {
             console.log('db connected');
-
-
         })
         .catch(err => console.log(err))
 })
