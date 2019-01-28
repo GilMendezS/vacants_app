@@ -30,12 +30,14 @@ app.use('/api/vacants', vacantRoutes)
 app.use('/api/jobs', jobRoutes);
 app.get('*', (req, res) => res.sendFile(__dirname + "/public/index.html"))
 mongoose.set('debug', true);
-mongoose.connect(env.db,{ useNewUrlParser: true })
-.then(db => {
-    console.log('db connected');
-    app.listen(port, () => {
-        console.log('Http server running');
-    })
-    
+
+app.listen(port, () => {
+    console.log('Http server running');
+    mongoose.connect(env.db, { useNewUrlParser: true })
+        .then(db => {
+            console.log('db connected');
+
+
+        })
+        .catch(err => console.log(err))
 })
-.catch(err => console.log(err))
